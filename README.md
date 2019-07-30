@@ -21,7 +21,7 @@ In order to allow inference in the presence of reassortment, we introduced the c
 
 ### BEAST2 - Bayesian Evolutionary Analysis Sampling Trees 2
 
-BEAST2 ([http://www.beast2.org](http://www.beast2.org)) is a free software package for Bayesian evolutionary analysis of molecular sequences using MCMC and strictly oriented toward inference using rooted, time-measured phylogenetic trees. This tutorial is written for BEAST v{{ page.beastversion }} {% cite BEAST2book2014 --file CoupledMCMC-Tutorial/master-refs %}.
+BEAST2 ([http://www.beast2.org](http://www.beast2.org)) is a free software package for Bayesian evolutionary analysis of molecular sequences using MCMC and strictly oriented toward inference using rooted, time-measured phylogenetic trees. This tutorial is written for BEAST v{{ page.beastversion }} {% cite BEAST2book2014 --file Reassortment-Tutorial/master-refs %}.
 
 
 ### BEAUti2 - Bayesian Evolutionary Analysis Utility
@@ -74,7 +74,7 @@ Then, repeat the same thing for the other segment.
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:30%;" src="figures/SplitAlignments.png" alt="">
-	<figcaption>Figure 2: Split alignments into codon positions.</figcaption>
+	<figcaption>Figure 3: Split alignments into codon positions.</figcaption>
 </figure>
 
 ## Linking the site models and clock models 
@@ -89,7 +89,7 @@ In the new window, select split on character
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:30%;" src="figures/SplitCharacter.png" alt="">
-	<figcaption>Figure 2: Split character and tke the second group to get the sampling times .</figcaption>
+	<figcaption>Figure 4: Split character and tke the second group to get the sampling times .</figcaption>
 </figure>
 
 In order to set the tip dates for both segments, select both partitions an press `OK`
@@ -97,7 +97,7 @@ In order to set the tip dates for both segments, select both partitions an press
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:70%;" src="figures/CloneTipDates.png" alt="">
-	<figcaption>Figure 2: Clone tip dates .</figcaption>
+	<figcaption>Figure 5: Clone tip dates .</figcaption>
 </figure>
 
 ## Setting up the site model
@@ -108,7 +108,7 @@ Also, set the `Gamma Category Count` to 4 and make sure to click `estimate` for 
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:70%;" src="figures/SiteModel.png" alt="">
-	<figcaption>Figure 2: Setting up the site models .</figcaption>
+	<figcaption>Figure 6: Setting up the site models .</figcaption>
 </figure>
 
 We next have to go back to the `Partitions` ta, select all Partitions and then press `Unlink Site Models`. This allows each parition to have its own site model with its own parameters. 
@@ -116,7 +116,7 @@ We next have to go back to the `Partitions` ta, select all Partitions and then p
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:70%;" src="figures/UnlinkSiteModels.png" alt="">
-	<figcaption>Figure 2: Setting up the site models.</figcaption>
+	<figcaption>Figure 7: Setting up the site models.</figcaption>
 </figure>
 
 ## Setting up the Priors
@@ -128,7 +128,7 @@ This has to be done for both (!) trees.
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:70%;" src="figures/CoalescentWithReassortment.png" alt="">
-	<figcaption>Figure 2: Changing the Yule model to the coalescent with reassortment.</figcaption>
+	<figcaption>Figure 8: Changing the Yule model to the coalescent with reassortment.</figcaption>
 </figure>
 
 We now have to set the prior distribution on the parameters.
@@ -138,7 +138,7 @@ Set the prior distribution on the reassortment rate to be an exponential distrib
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:70%;" src="figures/ReassortmentPrior.png" alt="">
-	<figcaption>Figure 2: Setting the prior distribution on the reassortment rate.</figcaption>
+	<figcaption>Figure 9: Setting the prior distribution on the reassortment rate.</figcaption>
 </figure>
 
 ## Setting up the Chain Length
@@ -148,7 +148,7 @@ This was the last step of setting up the xml and we can now save it by going to 
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:20%;" src="figures/SaveXml.png" alt="">
-	<figcaption>Figure 2: Save xml.</figcaption>
+	<figcaption>Figure 10: Save xml.</figcaption>
 </figure>
 
 ## Run the xml	
@@ -164,7 +164,7 @@ All ESS values should optimally be above 200.
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:70%;" src="figures/Tracer.png" alt="">
-	<figcaption>Figure 2: Check convergence in Tracer.</figcaption>
+	<figcaption>Figure 11: Check convergence in Tracer.</figcaption>
 </figure>
 
 Next, we can check what rates were inferred.
@@ -182,19 +182,28 @@ Next, choose the `networks.trees` file as input for the `Reassortment Network lo
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:70%;" src="figures/Summary.png" alt="">
-	<figcaption>Figure 2: Produce the maximum clade credibility network.</figcaption>
+	<figcaption>Figure 12: Produce the maximum clade credibility network.</figcaption>
 </figure>
 
 
 ## Visualize the network using icytree.org
-Next, open your browser and go to the webpage [icytree.org](icytree.org)
+Next, open your browser and go to the webpage [icytree.org](icytree.org){% cite vaughan2017icytree --file Reassortment-Tutorial/master-refs %}
 The resulting mcc network file can now be drag and dropped into icytree to visualize the network.
+Icytree plots the network as a base tree that is connected by dotted branches. 
+This implies that at a reassortment event, there is a difference between the two parent branches. 
+This is, however, not the case in the coalescent with reassortment model, but for simplicity is plotted like this.
+The "main" branch here is the always the parent branch that carries more segments.
+If both branches carry the same amount of segments, the branch that is closer the next event is chosen as the main branch.
 
 <figure>
 	<a id="fig:example1"></a>
 	<img style="width:70%;" src="figures/IcyTree.png" alt="">
-	<figcaption>Figure 2: Produce the maximum clade credibility network.</figcaption>
+	<figcaption>Figure 13: Visualize the mcc network in icytree.</figcaption>
 </figure>
+
+The 95 $\%$ highest posterior density intervals for node heights can be plotted by going to `Style > Node height error bars`.
+The posterior support for each node can be shown by going to `Style > Internal noe text`. 
+
 
 
 ----
