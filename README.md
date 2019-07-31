@@ -41,13 +41,18 @@ TreeAnnotator is provided as a part of the BEAST2 package so you do not need to 
 
 # Practical: Setting up an coalescent with reassortment analysis
 
-In this tutorial, we will describe how to set up a coalecent with reassortment analysis  
+The coalescent with reassortment is an approach that allows inferring reassortment networks and rates of segmented viruses from the genetic sequences of individual segments.
+In this tutorial, we will describe how to set up a coalecent with reassortment analysis .
 
 ## The Data
-The dataset consists of 25 HA and NA sequences of pandemic 2009 like human influenza A/H1N1 sampled between 2012 and 2017.
+After the 2009 influenza A/H1N1 pandemic, this virus become seasonal and is circulating the globe since then.
+The dataset we use in this tutorial consists of 25 HA and NA sequences of pandemic 2009 like human influenza A/H1N1 sampled between 2012 and 2017 downloaded from [fludb.org](fludb.org).
+The already aligned sequences can be found in the data folder.
+
 
 ## Download CoalRe
-First, we have to download the CoalRe package by using the BEAUTi package manager. Go to `File >> Manage Packages` and download the CoalRe package .
+First, we have to download the CoalRe package by using the BEAUti package manager. 
+To do so, first open BEAUTi and then go to `File >> Manage Packages` and download the CoalRe package .
 
 <figure>
 	<a id="fig:example1"></a>
@@ -55,11 +60,11 @@ First, we have to download the CoalRe package by using the BEAUTi package manage
 	<figcaption>Figure 1: Download the CoalRe package</figcaption>
 </figure>
 
-After the package is installed, re-start BEUAti
+After the package is installed, re-start BEAUti.
 
 ## Load in the sequences
 In order to load in the sequences into BEAUti, they can be dragged and dropped into the paritions window.
-Then a window will pop up, where we'll have to specify that all the sequence files just loaded in are nucleotide sequences
+Then a window will pop up, where we'll have to specify that all the sequence files just loaded in are nucleotide sequences.
 
 <figure>
 	<a id="fig:example1"></a>
@@ -68,7 +73,8 @@ Then a window will pop up, where we'll have to specify that all the sequence fil
 </figure>
 
 In order to account for rate variations across the different nucleotide sites, we next have to split both alignments into codon positions.
-To do so, select one of the segments and the press split and select the 1,2 +3 option.
+To do so, select one of the segments and the press split and select the 1,2 +3 option. 
+This assigns the same relative evolutionary rate to the first 2 codon postitions and a different one for the third position.
 Then, repeat the same thing for the other segment.
 
 <figure>
@@ -79,12 +85,14 @@ Then, repeat the same thing for the other segment.
 
 ## Linking the site models and clock models 
 Next, we'll have to select all partitions, and then press `Link Site Models`, `Link Clock Models`.
+Linking Clock models leads every partition to have the same evolutionary rate, while linking the site model assigns every partition the same site model.
+Assigning every partition the same site model is only done temporarily to speed up the setting up of the xml file and the site models will be unlinked later again.
  
 ## Setting up the sampling times
-Now, we'll have to set up the sampling times. 
-To do so, go to the `Tip Dates` partition and select `Use tip dates`
+Next, we'll have to set up the sampling times. 
+To do so, go to `Tip Dates`  and select `Use tip dates`
 Specify the dates format to be `yyyy-M-dd` and press the `Auto-configure` button.
-In the new window, select split on character 
+In the window that should pop up, select split on character 
 
 <figure>
 	<a id="fig:example1"></a>
@@ -92,7 +100,7 @@ In the new window, select split on character
 	<figcaption>Figure 4: Split character and tke the second group to get the sampling times .</figcaption>
 </figure>
 
-In order to set the tip dates for both segments, select both partitions an press `OK`
+In order to set the tip dates for both segments, select both partitions an press `OK` to clone the tip dates
 
 <figure>
 	<a id="fig:example1"></a>
@@ -101,9 +109,10 @@ In order to set the tip dates for both segments, select both partitions an press
 </figure>
 
 ## Setting up the site model
-
-As a site model, we will use an $HKY+\Gamma_4$ model. To do so, set the site model from `JC69` to `HKY`.
-Also, set the `Gamma Category Count` to 4 and make sure to click `estimate` for the `Substitution Rate`. The last part allows each segment, as well as the first two and the third codon position to have different relative rates of evolution.
+As a site model, we will use an $HKY+\Gamma_4$ model. 
+To do so, first set the site model from `JC69` to `HKY`, which allows transition and transversion rates to differ.
+Also, set the `Gamma Category Count` to 4 and make sure to click `estimate` for the `Substitution Rate`. 
+The last part allows each segment, as well as the first two and the third codon position to have different relative rates of evolution.
 
 <figure>
 	<a id="fig:example1"></a>
@@ -111,7 +120,9 @@ Also, set the `Gamma Category Count` to 4 and make sure to click `estimate` for 
 	<figcaption>Figure 6: Setting up the site models .</figcaption>
 </figure>
 
-We next have to go back to the `Partitions` ta, select all Partitions and then press `Unlink Site Models`. This allows each parition to have its own site model with its own parameters. 
+We next have to go back to the `Partitions` ta, select all Partitions and then press `Unlink Site Models`. 
+As mentioned above, the linking of the site models was only done to speed up setting up the xml.
+After we unlinked the site models, each parition will have a site model that is setup the same way, but that has parameters that can be independently estimated. 
 
 <figure>
 	<a id="fig:example1"></a>
@@ -120,10 +131,11 @@ We next have to go back to the `Partitions` ta, select all Partitions and then p
 </figure>
 
 ## Setting up the Priors
-
 We can leave the clock model as is, which means that we use a Strict Clock Model and directly go the the `Priors` tab.
-The first and most important thing we have to do here is to to change the `Yule Model` to `Coalescent With Reassortment Constant Population`. 
+There currently is no other option than a strict clock model anyway when considering networks instead of trees.
+The first and most important thing we have to do here, is to to change the `Yule Model` to `Coalescent With Reassortment Constant Population`. 
 This has to be done for both (!) trees.
+This ensures that both segment trees are linked to a network in which they are embedded and that that network is linked to a coalescent with reassortment network prior.
 
 <figure>
 	<a id="fig:example1"></a>
@@ -131,9 +143,10 @@ This has to be done for both (!) trees.
 	<figcaption>Figure 8: Changing the Yule model to the coalescent with reassortment.</figcaption>
 </figure>
 
-We now have to set the prior distribution on the parameters.
+We next have to set the prior distribution on the parameters.
 The prior distribution on the effective population size can be left as is, but we have to change the prior on the reassortment rate.
-Set the prior distribution on the reassortment rate to be an exponential distribution with mean 0.25. This means that we assume on average one reassortment event per lineage every 4 years.
+Set the prior distribution on the reassortment rate to be an exponential distribution with mean 0.25. 
+This means that we assume a priori that on average there is one reassortment event per lineage occurring every 4 years.
  
 <figure>
 	<a id="fig:example1"></a>
@@ -152,11 +165,11 @@ This was the last step of setting up the xml and we can now save it by going to 
 </figure>
 
 ## Run the xml	
-Next, open `BEAST` and run the xml. This should take about 15-20 minutes.
+Next, open `BEAST` and run the xml. 
+This should take somwhere in the order of= 15-20 minutes.
 Alternative, the folder `precooked_runs` contains the log files of the run.
 
 ## Inspect the run in Tracer
-
 Next, we have to check whether everything converged.
 To do so, we can opern the program Tracer and load the `*.log` file.
 All ESS values should optimally be above 200.
@@ -167,7 +180,7 @@ All ESS values should optimally be above 200.
 	<figcaption>Figure 11: Check convergence in Tracer.</figcaption>
 </figure>
 
-Next, we can check what rates were inferred.
+Then, we can check what rates were inferred.
 The `clockRate` denotes the average rate of evolution across all segments.
 The 'reassortmentRateCwR.alltrees` denotes the rate of reassortment (from present to past) per lineage and year.
 
@@ -185,6 +198,10 @@ Next, choose the `networks.trees` file as input for the `Reassortment Network lo
 	<figcaption>Figure 12: Produce the maximum clade credibility network.</figcaption>
 </figure>
 
+The option 'Removes segments from the summary' is not relevant for datasets with only 2 segments.
+When there are more segments, however, it can e.g. be interesting to look at the reassortment network of pairs of segments.
+This option allows to remove segments from an analysis.
+Keep in mind though that the numbering of segments is not neccessarily the biological one, but the alphabetical one (for implementation reasons).
 
 ## Visualize the network using icytree.org
 Next, open your browser and go to the webpage [icytree.org](icytree.org){% cite vaughan2017icytree --file Reassortment-Tutorial/master-refs %}
