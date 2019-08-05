@@ -234,4 +234,4 @@ The posterior support for each node can be shown by going to `Style > Internal n
 
 # Relevant References
 
-{% bibliography --cited --file CoupledMCMC-Tutorial/master-refs %}
+{% bibliography --cited --file Reassortment-Tutorial/master-refs %}
