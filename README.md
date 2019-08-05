@@ -219,7 +219,7 @@ If both branches carry the same amount of segments, the branch that is closer th
 </figure>
 
 The 95 $\%$ highest posterior density intervals for node heights can be plotted by going to `Style > Node height error bars`.
-The posterior support for each node can be shown by going to `Style > Internal noe text`. 
+The posterior support for each node can be shown by going to `Style > Internal node text`. 
 
 
 
