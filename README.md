@@ -211,7 +211,7 @@ The `reassortmentRateCwR.alltrees` denotes the rate of reassortment (from presen
 ## Summarize the posterior distribution of networks
 Next, we can summarize the distribution of networks by maximizing the clade credibilities.
 To do so, open `BEAUti` and select `File > Launch Apps`.
-Then, select `Reassortment Network Annotator`.
+Then, select `Reassortment Network Summarizer`.
 
 Next, choose the `networks.trees` file as input for the `Reassortment Network log file` and choose the file where the mcc network should be saved to and press analyse.
 
@@ -227,7 +227,7 @@ This option allows to remove segments from an analysis.
 Keep in mind though that the numbering of segments is not neccessarily the biological one, but the alphabetical one (for implementation reasons).
 
 ## Visualize the network using icytree.org
-Next, open your browser and go to the webpage [icytree.org](icytree.org){% cite vaughan2017icytree --file Reassortment-Tutorial/master-refs %}
+Next, open your browser and go to the webpage [icytree.org](https://icytree.org){% cite vaughan2017icytree --file Reassortment-Tutorial/master-refs %}
 The resulting mcc network file can now be drag and dropped into icytree to visualize the network.
 Icytree plots the network as a base tree that is connected by dotted branches.
 This implies that at a reassortment event, there is a difference between the two parent branches.
